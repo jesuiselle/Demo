@@ -1,0 +1,63 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false"
+    >
+        <span *ngIf="!panelOpenState">{{stockForm.onReset()}}</span>
+        <mat-expansion-panel-header>
+            <mat-panel-description>
+                {{panelOpenState ? 'Add more products' : 'Would you like to add new product?'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-card>
+            <form class="stockForm" (submit)="onAddStock(stockForm)" #stockForm="ngForm" style="display: inline-block;" ngNativeValidate ngModelOptions.allowInvalid>
+                <mat-form-field appearance="legacy">
+                    <mat-label>Product name</mat-label>
+                    <input
+                            matInput
+                            type="text"
+                            name="name"
+                            ngModel
+                            required
+                            minlength="3"
+                            placeholder="Product"
+                            #name="ngModel"
+                    >
+                    <mat-error *ngIf="name.invalid">Please enter a valid name.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="legacy">
+                    <mat-label>Product price</mat-label>
+                    <input
+                            matInput
+                            type="number"
+                            name="price"
+                            min="0"
+                            ngModel
+                            required
+                            placeholder="Price"
+                            #price="ngModel"
+                    >
+                    <mat-error *ngIf="price.invalid">Please enter a valid price.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="legacy">
+                    <mat-label>Product amount</mat-label>
+                    <input
+                            matInput
+                            type="number"
+                            name="stock"
+                            ngModel
+                            min="0"
+                            required
+                            placeholder="Amount in stock"
+                            #stock="ngModel"
+                    >
+                    <mat-error *ngIf="stock.invalid">Please enter a valid amount.</mat-error>
+                </mat-form-field>
+                <button
+                        mat-raised-button
+                        color="accent"
+                        type="submit">Save Stock
+                </button>
+            </form>
+        </mat-card>
+    </mat-expansion-panel>
+</mat-accordion>
